@@ -1,4 +1,4 @@
-import { Home, User, Sparkles, FolderGit2,  Send } from 'lucide-react';
+import { Home, User, Sparkles, FolderGit2, Send } from 'lucide-react';
 
 const items = [
     { id: 'hero', icon: Home, label: 'Home' },
@@ -24,17 +24,15 @@ export default function Dock({ activeSection }: DockProps) {
                     <button
                         key={id}
                         onClick={() => go(id)}
-                        className={`group px-3 py-2 rounded-xl flex items-center gap-2 transition-all
-              ${
-                            activeSection === id
-                                ? 'bg-blue-500 text-white shadow-lg scale-110'
-                                : 'text-white hover:bg-white/5 hover:scale-105'
-                        }`}
+                        className={`group relative flex items-center justify-center p-2 md:px-3 md:py-2 rounded-xl transition-all duration-300
+              ${activeSection === id ? 'bg-blue-500 text-white scale-110 shadow-lg' : 'text-white hover:bg-white/5 hover:scale-110'}`}
                         aria-label={label}
                         title={label}
                     >
-                        <Icon className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform" />
-                        <span className="hidden md:inline text-sm">{label}</span>
+                        {/* Icon */}
+                        <Icon className="w-6 h-6 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-125" />
+                        {/* Label only on medium screens */}
+                        <span className="hidden md:inline ml-2 text-sm">{label}</span>
                     </button>
                 ))}
             </div>
