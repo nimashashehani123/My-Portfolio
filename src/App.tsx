@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
-import Navbar from "./components/Navbar.tsx";
-import Hero from "./sections/Hero.tsx";
-import About from "./sections/About.tsx";
-import Skills from "./sections/Skills.tsx";
-import Projects from "./sections/Projects.tsx";
-import Contact from "./sections/Contact.tsx";
-import useHorizontalScroll from "./hooks/useHorizontalScroll";
-
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './sections/Hero';
+import About from './sections/About';
+import Skills from './sections/Skills';
+import Projects from './sections/Projects';
+import Contact from './sections/Contact';
+import useHorizontalScroll from './hooks/useHorizontalScroll';
 
 const App: React.FC = () => {
     const [activeSection, setActiveSection] = useState('hero');
@@ -103,11 +102,21 @@ const App: React.FC = () => {
             />
 
             <main className={isMobile ? 'flex flex-col' : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth'}>
-                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}><Hero /></div>
-                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}><About /></div>
-                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}><Skills /></div>
-                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}><Projects /></div>
-                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}><Contact /></div>
+                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}>
+                    <Hero />
+                </div>
+                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}>
+                    <About />
+                </div>
+                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}>
+                    <Skills />
+                </div>
+                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}>
+                    <Projects />
+                </div>
+                <div className={isMobile ? '' : 'min-w-full h-full snap-start'}>
+                    <Contact />
+                </div>
             </main>
 
             {/* Scroll Indicator for Desktop */}
@@ -124,43 +133,6 @@ const App: React.FC = () => {
                     ))}
                 </div>
             )}
-
-            <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        
-        /* Custom scrollbar for desktop horizontal scroll */
-        @media (min-width: 768px) {
-          .horizontal-container {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(59, 130, 246, 0.5) rgba(255, 255, 255, 0.1);
-          }
-          
-          .horizontal-container::-webkit-scrollbar {
-            height: 8px;
-          }
-          
-          .horizontal-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-          }
-          
-          .horizontal-container::-webkit-scrollbar-thumb {
-            background: rgba(59, 130, 246, 0.5);
-            border-radius: 4px;
-          }
-          
-          .horizontal-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(59, 130, 246, 0.8);
-          }
-        }
-      `}</style>
         </div>
     );
 };
