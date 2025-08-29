@@ -1,13 +1,15 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Skills from "./sections/Skills";
-import Projects from "./sections/Projects";
-import Contact from "./sections/Contact";
+import Navbar from "./components/Navbar.tsx";
+import Hero from "./sections/Hero.tsx";
+import About from "./sections/About.tsx";
+import Skills from "./sections/Skills.tsx";
+import Projects from "./sections/Projects.tsx";
+import Contact from "./sections/Contact.tsx";
+import useHorizontalScroll from "./hooks/useHorizontalScroll";
 
 
 const App: React.FC = () => {
+    useHorizontalScroll();
     return (
         <div className="relative w-screen h-screen overflow-x-auto flex snap-x snap-mandatory scroll-smooth">
             <Navbar />
@@ -18,6 +20,6 @@ const App: React.FC = () => {
             <section className="min-w-screen h-screen snap-start"><Contact /></section>
         </div>
     );
-}
+};
 
 export default App;
