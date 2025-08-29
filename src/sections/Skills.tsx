@@ -1,111 +1,120 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiPython } from "react-icons/si";
 
 interface Skill {
     name: string;
     level: number;
-    color: string;
-    category: string;
+    icon: React.ReactNode;
 }
 
 const Skills: React.FC = () => {
     const [inView, setInView] = useState(false);
+    const [, setMousePos] = useState({ x: 50, y: 50 });
 
     const skills: Skill[] = [
-        {
-            name: "React",
-            level: 90,
-            color: "from-blue-400 to-blue-600",
-            category: "Frontend"
-        },
-        {
-            name: "TypeScript",
-            level: 85,
-            color: "from-blue-500 to-indigo-600",
-            category: "Language"
-        },
-        {
-            name: "TailwindCSS",
-            level: 95,
-            color: "from-cyan-400 to-teal-600",
-            category: "Styling"
-        },
-        {
-            name: "JavaScript",
-            level: 95,
-            color: "from-yellow-400 to-orange-500",
-            category: "Language"
-        },
-        {
-            name: "Node.js",
-            level: 80,
-            color: "from-green-400 to-green-600",
-            category: "Backend"
-        },
-        {
-            name: "Python",
-            level: 75,
-            color: "from-purple-400 to-pink-500",
-            category: "Language"
-        }
+        { name: "React", level: 90, icon: <FaReact size={24} /> },
+        { name: "TypeScript", level: 85, icon: <SiTypescript size={24} /> },
+        { name: "TailwindCSS", level: 95, icon: <SiTailwindcss size={24} /> },
+        { name: "Node.js", level: 80, icon: <FaNodeJs size={24} /> },
+        { name: "Python", level: 75, icon: <SiPython size={24} /> },
+        { name: "Database", level: 85, icon: <FaDatabase size={24} /> },
     ];
 
+    // IntersectionObserver for progress bars
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => setInView(entry.isIntersecting),
             { threshold: 0.3 }
         );
-
-        const element = document.getElementById('skills');
+        const element = document.getElementById("skills");
         if (element) observer.observe(element);
-
         return () => observer.disconnect();
     }, []);
 
+    // Mouse position for floating icons
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            setMousePos({
+                x: (e.clientX / window.innerWidth) * 100,
+                y: (e.clientY / window.innerHeight) * 100,
+            });
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
+    // Floating icons
+    const icons = [
+        { Icon: FaReact },
+        { Icon: SiTypescript },
+        { Icon: SiTailwindcss },
+        { Icon: FaNodeJs },
+        { Icon: SiPython },
+        { Icon: FaDatabase },
+    ];
+
     return (
-        <div className="w-full h-full flex items-center bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 text-white">
-            <div className="w-full px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
-                <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-8 md:mb-12 text-center bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-                    My Skills
-                </h2>
+        <section
+            id="skills"
+            className="w-full min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center py-20 px-6 relative overflow-hidden"
+        >
+            {/* Floating Background Icons */}
+            {icons.map(({ Icon }, idx) => (
+                <motion.div
+                    key={idx}
+                    className="absolute text-white/10 text-4xl md:text-5xl"
+                    style={{
+                        left: `${Math.random() * 90}%`,
+                        top: `${Math.random() * 80}%`,
+                    }}
+                    animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 4 + idx * 0.5,
+                        repeatType: "mirror",
+                        ease: "easeInOut",
+                    }}
+                >
+                    <Icon />
+                </motion.div>
+            ))}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    {skills.map((skill, idx) => (
-                        <div
-                            key={skill.name}
-                            className="bg-white/5 backdrop-blur-sm rounded-xl p-4 md:p-6 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 group"
-                        >
-                            <div className="flex justify-between items-center mb-4">
-                                <div>
-                                    <span className="text-lg md:text-xl font-semibold">{skill.name}</span>
-                                    <div className="text-gray-400 text-sm">{skill.category}</div>
-                                </div>
-                                <span className="text-blue-400 font-bold text-sm md:text-base">{skill.level}%</span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-white/90 z-10 relative">
+                My Skills
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full z-10 relative">
+                {skills.map((skill, idx) => (
+                    <motion.div
+                        key={skill.name}
+                        className="p-4 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 hover:scale-105 hover:border-white/20 transition-transform duration-300 shadow-md flex items-center gap-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: idx * 0.15 }}
+                    >
+                        <div className="flex items-center justify-center w-12 h-12 bg-white/10 rounded-full shadow-sm">
+                            {skill.icon}
+                        </div>
+                        <div className="flex-1">
+                            <div className="flex justify-between mb-2">
+                                <span className="font-medium text-lg">{skill.name}</span>
+                                <span className="font-semibold text-sm text-white/80">{skill.level}%</span>
                             </div>
-
-                            <div className="w-full h-2 md:h-3 bg-gray-600 rounded-full overflow-hidden">
-                                <div
-                                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out`}
-                                    style={{
-                                        width: inView ? `${skill.level}%` : '0%',
-                                        transitionDelay: `${idx * 150}ms`
-                                    }}
+                            <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-cyan-500 rounded-full shadow-sm"
+                                    style={{ width: inView ? `${skill.level}%` : "0%" }}
+                                    transition={{ duration: 1, delay: idx * 0.15 }}
                                 />
                             </div>
                         </div>
-                    ))}
-                </div>
-
-                <div className="mt-8 md:mt-12 text-center">
-                    <div className="inline-flex flex-wrap gap-3 justify-center">
-                        {['Full Stack Development', 'Responsive Design', 'API Development', 'Database Design'].map(skill => (
-                            <span key={skill} className="bg-white/10 px-4 py-2 rounded-full text-sm border border-white/20">
-                {skill}
-              </span>
-                        ))}
-                    </div>
-                </div>
+                    </motion.div>
+                ))}
             </div>
-        </div>
+        </section>
     );
 };
 
