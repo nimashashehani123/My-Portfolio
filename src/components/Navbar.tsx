@@ -23,7 +23,7 @@ export default function Dock({ activeSection, onNavClick, isMobile }: DockProps)
                         key={id}
                         onClick={() => onNavClick(id)}
                         className={`group relative flex items-center justify-center p-2 md:px-3 md:py-2 rounded-xl transition-all duration-300
-              ${activeSection === id ? 'bg-blue-500 text-white scale-110 shadow-lg' : 'text-white hover:bg-white/5 hover:scale-110'}`}
+              ${activeSection === id ? 'bg-cyan-400 text-white scale-110 shadow-lg' : 'text-white hover:bg-white/5 hover:scale-110'}`}
                         aria-label={label}
                         title={label}
                     >

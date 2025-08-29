@@ -87,7 +87,7 @@ const App: React.FC = () => {
                         <div
                             key={section}
                             className={`w-2 h-8 rounded-full transition-all cursor-pointer ${
-                                activeSection === section ? 'bg-blue-500' : 'bg-white/30 hover:bg-white/50'
+                                activeSection === section ? 'bg-cyan-400' : 'bg-white/30 hover:bg-white/50'
                             }`}
                             onClick={() => handleNavClick(section)}
                         />
