@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AiOutlineHome, AiOutlineUser, AiOutlineCode, AiOutlineProject, AiOutlineMail } from 'react-icons/ai';
 
 interface NavbarProps {
     activeSection: string;
@@ -10,11 +11,11 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavClick, isMobile }) 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const sections = [
-        { id: 'hero', label: 'HOME' },
-        { id: 'about', label: 'ABOUT' },
-        { id: 'skills', label: 'SKILLS' },
-        { id: 'projects', label: 'PROJECTS' },
-        { id: 'contact', label: 'CONTACT' }
+        { id: 'hero', label: 'HOME', icon: <AiOutlineHome size={20} /> },
+        { id: 'about', label: 'ABOUT', icon: <AiOutlineUser size={20} /> },
+        { id: 'skills', label: 'SKILLS', icon: <AiOutlineCode size={20} /> },
+        { id: 'projects', label: 'PROJECTS', icon: <AiOutlineProject size={20} /> },
+        { id: 'contact', label: 'CONTACT', icon: <AiOutlineMail size={20} /> },
     ];
 
     if (isMobile) {
@@ -44,13 +45,13 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavClick, isMobile }) 
                                     onNavClick(section.id);
                                     setIsMenuOpen(false);
                                 }}
-                                className={`px-4 py-2 rounded-lg transition-all text-left font-medium ${
+                                className={`px-4 py-2 rounded-lg transition-all text-left font-medium flex items-center gap-2 ${
                                     activeSection === section.id
                                         ? 'bg-blue-500 text-white transform scale-105'
                                         : 'text-white hover:bg-white/30'
                                 }`}
                             >
-                                {section.label}
+                                {section.icon} {section.label}
                             </button>
                         ))}
                     </div>
@@ -65,13 +66,13 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavClick, isMobile }) 
                 <button
                     key={section.id}
                     onClick={() => onNavClick(section.id)}
-                    className={`px-3 py-2 rounded-lg transition-all text-sm font-medium ${
+                    className={`px-3 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-1 ${
                         activeSection === section.id
                             ? 'bg-blue-500 text-white transform scale-105 shadow-lg'
                             : 'text-white hover:bg-white/30 hover:scale-105'
                     }`}
                 >
-                    {section.label}
+                    {section.icon}
                 </button>
             ))}
         </nav>
