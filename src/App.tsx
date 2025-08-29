@@ -5,13 +5,11 @@ import About from './sections/About';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
 import Contact from './sections/Contact';
-import useHorizontalScroll from './hooks/useHorizontalScroll';
+
 
 const App: React.FC = () => {
     const [activeSection, setActiveSection] = useState('hero');
     const [isMobile, setIsMobile] = useState(false);
-
-    useHorizontalScroll();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -70,10 +68,10 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="relative w-screen h-screen overflow-hidden">
+        <div className="relative w-screen h-screen overflow-y-auto">
             <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
 
-            <main className={isMobile ? 'flex flex-col h-auto overflow-y-auto' : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth'}>
+            <main className={isMobile ? 'flex flex-col h-auto overflow-y-auto hide-scrollbar' : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth hide-scrollbar'}>
                 <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="hero"><Hero /></section>
                 <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="about"><About /></section>
                 <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="skills"><Skills /></section>
@@ -82,7 +80,7 @@ const App: React.FC = () => {
             </main>
 
             {!isMobile && (
-                <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2">
+                <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2 overflow-x-auto">
                     {['hero', 'about', 'skills', 'projects', 'contact'].map((section) => (
                         <div
                             key={section}
