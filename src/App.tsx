@@ -11,14 +11,17 @@ import useHorizontalScroll from "./hooks/useHorizontalScroll";
 const App: React.FC = () => {
     useHorizontalScroll();
     return (
-        <div className="relative w-screen h-screen overflow-x-auto flex snap-x snap-mandatory scroll-smooth">
+        <div className="relative w-screen h-screen overflow-x-auto flex flex-nowrap snap-x snap-mandatory scroll-smooth scrollbar-hide">
             <Navbar />
-            <section className="min-w-screen h-screen snap-start"><Hero /></section>
-            <section className="min-w-screen h-screen snap-start"><About /></section>
-            <section className="min-w-screen h-screen snap-start"><Skills /></section>
-            <section className="min-w-screen h-screen snap-start"><Projects /></section>
-            <section className="min-w-screen h-screen snap-start"><Contact /></section>
+            <main className="flex flex-nowrap">
+                <section className="min-w-screen h-screen snap-start"><Hero /></section>
+                <section className="min-w-screen h-screen snap-start"><About /></section>
+                <section className="min-w-screen h-screen snap-start"><Skills /></section>
+                <section className="min-w-screen h-screen snap-start"><Projects /></section>
+                <section className="min-w-screen h-screen snap-start"><Contact /></section>
+            </main>
         </div>
+
     );
 };
 

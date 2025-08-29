@@ -1,26 +1,20 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React from "react";
+import Particles from "react-tsparticles";
+
 
 const Hero: React.FC = () => {
-    const controls = useAnimation();
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        controls.start({
-            rotateY: [0, 360],
-            transition: { duration: 5, repeat: Infinity, ease: "linear" },
-        });
-    }, [controls]);
-
     return (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-blue-700 to-purple-600 perspective-1000">
-            <motion.h1
-                ref={ref}
-                animate={controls}
-                className="text-6xl font-extrabold text-white tracking-widest"
-            >
-                Welcome!
-            </motion.h1>
+        <div className="h-screen w-screen relative flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+            <Particles
+                options={{
+                    particles: { number: { value: 50 }, size: { value: 3 }, move: { speed: 1 } },
+                    interactivity: { events: { onhover: { enable: true, mode: "repulse" } } },
+                }}
+                className="absolute inset-0"
+            />
+            <h1 className="text-6xl font-extrabold text-gray-900 relative z-10">
+                Hi, I'm Nimasha
+            </h1>
         </div>
     );
 };
