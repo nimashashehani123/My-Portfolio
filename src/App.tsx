@@ -14,10 +14,7 @@ const App: React.FC = () => {
     useHorizontalScroll();
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
@@ -29,7 +26,6 @@ const App: React.FC = () => {
 
             if (isMobile) {
                 const scrollPosition = window.scrollY + window.innerHeight / 2;
-
                 for (const section of sections) {
                     const element = document.getElementById(section);
                     if (element) {
@@ -45,71 +41,44 @@ const App: React.FC = () => {
                 if (container) {
                     const scrollLeft = container.scrollLeft;
                     const sectionIndex = Math.round(scrollLeft / window.innerWidth);
-                    if (sections[sectionIndex]) {
-                        setActiveSection(sections[sectionIndex]);
-                    }
+                    if (sections[sectionIndex]) setActiveSection(sections[sectionIndex]);
                 }
             }
         };
 
         const container = document.querySelector('.horizontal-container');
-        if (isMobile) {
-            window.addEventListener('scroll', handleScroll);
-        } else if (container) {
-            container.addEventListener('scroll', handleScroll);
-        }
+        if (isMobile) window.addEventListener('scroll', handleScroll);
+        else if (container) container.addEventListener('scroll', handleScroll);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            if (container) {
-                container.removeEventListener('scroll', handleScroll);
-            }
+            if (container) container.removeEventListener('scroll', handleScroll);
         };
     }, [isMobile]);
 
     const handleNavClick = (sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
-            if (isMobile) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            } else {
+            if (isMobile) element.scrollIntoView({ behavior: 'smooth' });
+            else {
                 const container = document.querySelector('.horizontal-container') as HTMLElement;
-                if (container) {
-                    const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
-                    const sectionIndex = sections.indexOf(sectionId);
-                    container.scrollTo({
-                        left: sectionIndex * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                }
+                const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
+                const sectionIndex = sections.indexOf(sectionId);
+                if (container) container.scrollTo({ left: sectionIndex * window.innerWidth, behavior: 'smooth' });
             }
         }
     };
 
     return (
         <div className="relative w-screen h-screen overflow-hidden">
-            <Navbar
-                activeSection={activeSection}
-                onNavClick={handleNavClick}
-                isMobile={isMobile}
-            />
+            <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
 
             <main className={isMobile ? 'flex flex-col h-auto overflow-y-auto' : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth'}>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="hero">
-                    <Hero />
-                </section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="about">
-                    <About />
-                </section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="skills">
-                    <Skills />
-                </section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="projects">
-                    <Projects />
-                </section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="contact">
-                    <Contact />
-                </section>
+                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="hero"><Hero /></section>
+                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="about"><About /></section>
+                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="skills"><Skills /></section>
+                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="projects"><Projects /></section>
+                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="contact"><Contact /></section>
             </main>
 
             {!isMobile && (
