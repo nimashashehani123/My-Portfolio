@@ -14,6 +14,13 @@ const Hero: React.FC = () => {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    const handleScrollTo = (id: string) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
         <div className="w-full h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
 
@@ -36,7 +43,7 @@ const Hero: React.FC = () => {
                         className="text-white/40 text-2xl md:text-3xl cursor-default"
                         animate={{ y: [0, -6, 0], rotate: [0, 3, -3, 0] }}
                         transition={{ repeat: Infinity, duration: 2 + idx * 0.5, repeatType: 'mirror', ease: 'easeInOut' }}
-                        title={label} // tooltip
+                        title={label}
                         whileHover={{ color: '#FFF', scale: 1.2 }}
                     >
                         <Icon />
@@ -71,8 +78,8 @@ const Hero: React.FC = () => {
                 >
                     Hi, I'm{' '}
                     <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
-            Nimasha
-          </span>
+                        Nimasha
+                    </span>
                 </motion.h1>
 
                 <motion.p
@@ -85,20 +92,23 @@ const Hero: React.FC = () => {
                 </motion.p>
 
                 <motion.div
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                    className="flex flex-row flex-wrap gap-4 justify-center"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6, duration: 1 }}
                 >
                     <motion.button
                         whileHover={{ scale: 1.05 }}
+                        onClick={() => handleScrollTo('projects')} // 🔗 scroll to projects
                         className="bg-cyan-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-cyan-600 transition-all"
                     >
                         Explore My Work
                     </motion.button>
+
                     <motion.button
                         whileHover={{ scale: 1.05 }}
-                        className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-cyan-600 transition-all"
+                        onClick={() => handleScrollTo('contact')}
+                        className="border-2 border-cyan-500 text-cyan-400 px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-cyan-400 transition-all"
                     >
                         Let’s Connect
                     </motion.button>
