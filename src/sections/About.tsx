@@ -1,8 +1,10 @@
-import * as React from "react";
+import React from "react";
 
 const About: React.FC = () => {
     return (
-        <h1>about</h1>
+        <div className="w-full h-full flex items-center justify-center bg-gray-800 text-white">
+            <h2 className="text-4xl">About Me</h2>
+        </div>
     );
 };
 
