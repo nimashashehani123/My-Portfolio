@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 const useHorizontalScroll = (): void => {
     useEffect(() => {
         const handleWheel = (e: WheelEvent) => {
-            // Only apply horizontal scroll on desktop
             if (window.innerWidth >= 768) {
                 e.preventDefault();
                 const container = document.querySelector('.horizontal-container') as HTMLElement;
@@ -29,42 +28,12 @@ const useHorizontalScroll = (): void => {
             }
         };
 
-        // Add touch support for mobile horizontal scroll
-        let startX = 0;
-        let scrollLeft = 0;
-
-        const handleTouchStart = (e: TouchEvent) => {
-            if (window.innerWidth >= 768) {
-                const container = document.querySelector('.horizontal-container') as HTMLElement;
-                if (container) {
-                    startX = e.touches[0].pageX - container.offsetLeft;
-                    scrollLeft = container.scrollLeft;
-                }
-            }
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (window.innerWidth >= 768) {
-                e.preventDefault();
-                const container = document.querySelector('.horizontal-container') as HTMLElement;
-                if (container) {
-                    const x = e.touches[0].pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    container.scrollLeft = scrollLeft - walk;
-                }
-            }
-        };
-
         window.addEventListener("wheel", handleWheel, { passive: false });
         window.addEventListener("keydown", handleKeyDown);
-        window.addEventListener("touchstart", handleTouchStart, { passive: false });
-        window.addEventListener("touchmove", handleTouchMove, { passive: false });
 
         return () => {
             window.removeEventListener("wheel", handleWheel);
             window.removeEventListener("keydown", handleKeyDown);
-            window.removeEventListener("touchstart", handleTouchStart);
-            window.removeEventListener("touchmove", handleTouchMove);
         };
     }, []);
 };
