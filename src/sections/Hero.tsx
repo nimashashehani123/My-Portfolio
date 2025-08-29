@@ -108,7 +108,7 @@ const Hero: React.FC = () => {
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         onClick={() => handleScrollTo('contact')}
-                        className="border-2 border-cyan-500 text-cyan-400 px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-cyan-400 transition-all"
+                        className="border-2 border-cyan-500 text-cyan-400 px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-cyan-600 transition-all"
                     >
                         Let’s Connect
                     </motion.button>
