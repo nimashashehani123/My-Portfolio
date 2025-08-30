@@ -7,7 +7,6 @@ import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 import { Toaster } from "react-hot-toast";
 import Preloader from "./sections/Preloader.tsx";
-import profileImg from "./assets/react.svg";
 
 const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
 
@@ -74,9 +73,7 @@ const App: React.FC = () => {
             <Toaster position="top-right" reverseOrder={false} />
 
             {loading ? (
-                <Preloader
-                    imageUrl={profileImg}
-                    onFinish={() => setLoading(false)}
+                <Preloader onFinish={() => setLoading(false)}
                 />
             ) : (
                 <div className="relative w-screen h-screen overflow-y-auto">

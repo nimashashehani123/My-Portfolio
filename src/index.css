@@ -45,3 +45,53 @@ html, body, #root {
 .animate-particle {
   animation: animate-particle 3s ease-in-out infinite;
 }
+
+.matrix {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #111827, #1f2937,  #111827); /* Tailwind: gray-900 → gray-800 → gray-700 */
+  overflow: hidden;
+}
+
+/* subtle vertical lines */
+.matrix::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background-image: repeating-linear-gradient(
+          0deg,
+          rgba(34, 211, 238, 0.2) 0px, /* cyan-blue 400 semi-transparent */
+          transparent 2px
+  );
+  background-size: 100% 20px;
+  animation: matrixFall 4s linear infinite;
+  pointer-events: none;
+}
+
+/* animate vertical lines */
+@keyframes matrixFall {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50%); }
+}
+
+/* optional floating particles for extra effect */
+.matrix::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(34,211,238,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: floatParticles 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatParticles {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
+}
