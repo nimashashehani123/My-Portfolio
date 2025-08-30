@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
                 >
                     <motion.button
                         whileHover={{ scale: 1.05 }}
-                        onClick={() => handleScrollTo('projects')} // 🔗 scroll to projects
+                        onClick={() => handleScrollTo('projects')}
                         className="bg-cyan-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-cyan-600 transition-all"
                     >
                         Explore My Work
