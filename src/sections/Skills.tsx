@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
-import { SiTailwindcss, SiTypescript, SiPython } from "react-icons/si";
+import { SiTailwindcss, SiTypescript, SiPython, SiSpringboot } from "react-icons/si";
 
 interface Skill {
     name: string;
@@ -14,6 +14,7 @@ const Skills: React.FC = () => {
     const [, setMousePos] = useState({ x: 50, y: 50 });
 
     const skills: Skill[] = [
+        { name: "Spring Boot", level: 80, icon: <SiSpringboot size={24} /> },
         { name: "React", level: 90, icon: <FaReact size={24} /> },
         { name: "TypeScript", level: 85, icon: <SiTypescript size={24} /> },
         { name: "TailwindCSS", level: 95, icon: <SiTailwindcss size={24} /> },

@@ -9,30 +9,31 @@ import { Toaster } from "react-hot-toast";
 import Preloader from "./sections/Preloader.tsx";
 import profileImg from "./assets/react.svg";
 
+const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
 
 const App: React.FC = () => {
     const [activeSection, setActiveSection] = useState('hero');
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
     const [loading, setLoading] = useState(true);
 
+    // Detect mobile
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
+        if (loading) return; // wait until content is visible
 
+        const handleScroll = () => {
             if (isMobile) {
-                const scrollPosition = window.scrollY + window.innerHeight / 2;
+                const scrollPos = window.scrollY + window.innerHeight / 2;
                 for (const section of sections) {
-                    const element = document.getElementById(section);
-                    if (element) {
-                        const { offsetTop, offsetHeight } = element;
-                        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                    const el = document.getElementById(section);
+                    if (el) {
+                        const { offsetTop, offsetHeight } = el;
+                        if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
                             setActiveSection(section);
                             break;
                         }
@@ -41,70 +42,86 @@ const App: React.FC = () => {
             } else {
                 const container = document.querySelector('.horizontal-container') as HTMLElement;
                 if (container) {
-                    const scrollLeft = container.scrollLeft;
-                    const sectionIndex = Math.round(scrollLeft / window.innerWidth);
-                    if (sections[sectionIndex]) setActiveSection(sections[sectionIndex]);
+                    const sectionIndex = Math.floor(container.scrollLeft / window.innerWidth);
+                    setActiveSection(sections[sectionIndex] || 'hero');
                 }
             }
         };
 
-        const container = document.querySelector('.horizontal-container');
-        if (isMobile) window.addEventListener('scroll', handleScroll);
-        else if (container) container.addEventListener('scroll', handleScroll);
+        if (isMobile) {
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+        } else {
+            const container = document.querySelector('.horizontal-container');
+            container?.addEventListener('scroll', handleScroll);
+            return () => container?.removeEventListener('scroll', handleScroll);
+        }
+    }, [isMobile, loading]);
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            if (container) container.removeEventListener('scroll', handleScroll);
-        };
-    }, [isMobile]);
 
     const handleNavClick = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            if (isMobile) element.scrollIntoView({ behavior: 'smooth' });
-            else {
-                const container = document.querySelector('.horizontal-container') as HTMLElement;
-                const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
-                const sectionIndex = sections.indexOf(sectionId);
-                if (container) container.scrollTo({ left: sectionIndex * window.innerWidth, behavior: 'smooth' });
-            }
+        if (isMobile) {
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            const container = document.querySelector('.horizontal-container') as HTMLElement;
+            const index = sections.indexOf(sectionId);
+            container?.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
         }
     };
 
     return (
         <>
-        <Toaster position="top-right" reverseOrder={false} />
+            <Toaster position="top-right" reverseOrder={false} />
+
             {loading ? (
-                <Preloader imageUrl={profileImg} onFinish={() => setLoading(false)} />
-        ) : (
-        <div className="relative w-screen h-screen overflow-y-auto">
-            <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
+                <Preloader
+                    imageUrl={profileImg}
+                    onFinish={() => setLoading(false)}
+                />
+            ) : (
+                <div className="relative w-screen h-screen overflow-y-auto">
+                    <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
 
-            <main className={isMobile ? 'flex flex-col h-auto overflow-y-auto hide-scrollbar' : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth hide-scrollbar'}>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="hero"><Hero /></section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="about"><About /></section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="skills"><Skills /></section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="projects"><Projects /></section>
-                <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="contact"><Contact /></section>
-            </main>
+                    <main
+                        className={
+                            isMobile
+                                ? 'flex flex-col h-auto overflow-y-auto hide-scrollbar'
+                                : 'horizontal-container flex flex-nowrap h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth hide-scrollbar'
+                        }
+                    >
+                        <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="hero">
+                            <Hero />
+                        </section>
+                        <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="about">
+                            <About />
+                        </section>
+                        <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="skills">
+                            <Skills />
+                        </section>
+                        <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="projects">
+                            <Projects />
+                        </section>
+                        <section className={isMobile ? 'min-h-screen' : 'min-w-full h-full snap-start'} id="contact">
+                            <Contact />
+                        </section>
+                    </main>
 
-            {!isMobile && (
-                <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2 overflow-x-auto">
-                    {['hero', 'about', 'skills', 'projects', 'contact'].map((section) => (
-                        <div
-                            key={section}
-                            className={`w-2 h-8 rounded-full transition-all cursor-pointer ${
-                                activeSection === section ? 'bg-cyan-400' : 'bg-white/30 hover:bg-white/50'
-                            }`}
-                            onClick={() => handleNavClick(section)}
-                        />
-                    ))}
+                    {!isMobile && (
+                        <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2">
+                            {sections.map((section) => (
+                                <div
+                                    key={section}
+                                    className={`w-2 h-8 rounded-full transition-all cursor-pointer ${
+                                        activeSection === section ? 'bg-cyan-400' : 'bg-white/30 hover:bg-white/50'
+                                    }`}
+                                    onClick={() => handleNavClick(section)}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
-        </div>
-)}
         </>
-
     );
 };
 
