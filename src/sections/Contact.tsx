@@ -1,24 +1,17 @@
 import React from "react";
 import emailjs from "emailjs-com";
 import toast from "react-hot-toast";
-import {
-    FaGithub,
-    FaLinkedinIn,
-    FaInstagram,
-    FaEnvelope,
-    FaPhone,
-    FaMapMarkerAlt,
-} from "react-icons/fa";
+import {FaGithub, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebookF, FaYoutube} from "react-icons/fa";
 
 const Contact: React.FC = () => {
     const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         emailjs
             .sendForm(
-                "service_zguj8en", // replace with your EmailJS service ID
-                "template_m2g4dxq", // replace with your EmailJS template ID
+                "service_zguj8en",
+                "template_m2g4dxq",
                 e.currentTarget,
-                "ftAHpJ1_kO0H7w2ua" // replace with your EmailJS public key
+                "ftAHpJ1_kO0H7w2ua"
             )
             .then(() => {
                 toast.success("Email sent successfully!");
@@ -65,10 +58,12 @@ const Contact: React.FC = () => {
                         </ul>
                         <div className="flex flex-wrap gap-3 sm:gap-4 mt-4 justify-center md:justify-start">
                             {[
-                                { icon: <FaGithub />, link: "https://github.com/username" },
-                                { icon: <FaLinkedinIn />, link: "https://linkedin.com/in/username" },
-                                { icon: <FaInstagram />, link: "https://instagram.com/username" },
-                                { icon: <FaEnvelope />, link: "mailto:nimasha@example.com" },
+                                { icon: <FaGithub />, link: "https://github.com/nimashashehani123" },
+                                { icon: <FaLinkedinIn />, link: "https://www.linkedin.com/in/nimashashehani/" },
+                                { icon: <FaInstagram />, link: "https://www.instagram.com/shehani_liyanage.15/" },
+                                { icon: <FaEnvelope />, link: "mailto:nimashashehani0715@gmail.com" },
+                                { icon: <FaFacebookF />, link: "https://web.facebook.com/profile.php?id=100090700191145" },
+                                { icon: <FaYoutube />, link: "https://www.youtube.com/@nimashashehani0715" }
                             ].map((item, idx) => (
                                 <a
                                     key={idx}
