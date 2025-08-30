@@ -6,11 +6,13 @@ import Skills from './sections/Skills';
 import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 import { Toaster } from "react-hot-toast";
+import Preloader from "./sections/Preloader.tsx";
 
 
 const App: React.FC = () => {
     const [activeSection, setActiveSection] = useState('hero');
     const [isMobile, setIsMobile] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -71,6 +73,9 @@ const App: React.FC = () => {
     return (
         <>
         <Toaster position="top-right" reverseOrder={false} />
+            {loading ? (
+            <Preloader onFinish={() => setLoading(false)} />
+        ) : (
         <div className="relative w-screen h-screen overflow-y-auto">
             <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
 
@@ -96,7 +101,9 @@ const App: React.FC = () => {
                 </div>
             )}
         </div>
+)}
         </>
+
     );
 };
 
