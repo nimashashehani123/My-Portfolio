@@ -7,6 +7,7 @@ import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 import { Toaster } from "react-hot-toast";
 import Preloader from "./sections/Preloader.tsx";
+import profileImg from "./assets/react.svg";
 
 
 const App: React.FC = () => {
@@ -74,7 +75,7 @@ const App: React.FC = () => {
         <>
         <Toaster position="top-right" reverseOrder={false} />
             {loading ? (
-            <Preloader onFinish={() => setLoading(false)} />
+                <Preloader imageUrl={profileImg} onFinish={() => setLoading(false)} />
         ) : (
         <div className="relative w-screen h-screen overflow-y-auto">
             <Navbar activeSection={activeSection} onNavClick={handleNavClick} isMobile={isMobile} />
