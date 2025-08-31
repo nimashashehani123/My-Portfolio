@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import heroImage from "./../assets/images/hero.jpg"
 
 const About: React.FC = () => {
     return (
@@ -73,7 +74,7 @@ const About: React.FC = () => {
                             {/* Main card */}
                             <div className="relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gray-900 rounded-2xl flex items-center justify-center border border-gray-700 shadow-xl overflow-hidden">
                 <span className="text-4xl md:text-6xl font-bold text-white">
-                  <img src = "src/assets/images/hero.JPG"/>
+                  <img src = {heroImage}/>
                 </span>
                             </div>
                         </div>
