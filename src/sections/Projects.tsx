@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import dataAnylist from "./../assets/images/data anylist.jpg"
-import HomeEase from "./../assets/images/HomeEase.png"
+import HomeEase from "./../assets/images/homeease.png"
 import Vixora from "./../assets/images/Vixora.png"
 import bookLibrary from "./../assets/images/book library.jpg"
 import parkingSystem from "./../assets/images/parking system.jpg"
