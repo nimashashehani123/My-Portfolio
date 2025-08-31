@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import dataAnylist from "./../assets/images/data anylist.jpg"
+import HomeEase from "./../assets/images/HomeEase.png"
+import Vixora from "./../assets/images/Vixora.png"
+import bookLibrary from "./../assets/images/book library.jpg"
+import parkingSystem from "./../assets/images/parking system.jpg"
+import portfolio from "./../assets/images/portfolio.png"
+import burgershop from "./../assets/images/burgershop.png"
+import connect4 from "./../assets/images/connect 4.jpg"
+import naturab from "./../assets/images/naturab.png"
 
 interface Project {
     id: number;
@@ -16,7 +25,7 @@ const projects: Project[] = [
         title: "Strategic Growth Analysis for UK E-Commerce Retailer",
         description:
             "Data analysis project using Python to extract strategic insights from UK online retail sales data.",
-        image: "src/assets/images/data anylist.jpg",
+        image: dataAnylist,
         tech: ["Python"],
         github: "https://github.com/nimashashehani123/Online_retail_project",
     },
@@ -25,7 +34,7 @@ const projects: Project[] = [
         title: "HomeEase",
         description:
             "HomeEase is a web application that connects customers with verified service providers for home-related tasks such as plumbing, electrical repairs, cleaning, and more.",
-        image: "src/assets/images/HomeEase.png",
+        image: HomeEase,
         tech: ["Java", "Springboot",  "HTML", "CSS", "JavaScript","AJAX", "Google Maps API", "Payhere", "MySQL"],
         github: "https://github.com/nimashashehani123/HomeEase",
     },
@@ -34,7 +43,7 @@ const projects: Project[] = [
         title: "E-Commerce Web Application",
         description:
             "A fully functional e-commerce web application built using JavaEE, JSP, and JDBC connection pooling.",
-        image: "src/assets/images/Vixora.png",
+        image: Vixora,
         tech: ["JavaEE", "JSP", "JDBC"],
         github: "https://github.com/nimashashehani123/E-Commerce-Web-Application",
     },
@@ -43,7 +52,7 @@ const projects: Project[] = [
         title: "Book-Club-Library",
         description:
             "A React web app designed exclusively for library staff to manage the book club’s collection.",
-        image: "src/assets/images/book library.jpg",
+        image: bookLibrary,
         tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Node.js"],
         github: "https://github.com/nimashashehani123/Book-Club-Library",
     },
@@ -52,7 +61,7 @@ const projects: Project[] = [
         title: "Smart Parking Management System",
         description:
             "Smart Parking Management System is a microservices-based system that manages user registration, vehicle entry/exit, parking space allocation, reservations, and payments using a secure and scalable architecture.",
-        image: "src/assets/images/parking system.jpg",
+        image: parkingSystem,
         tech: ["Spring Boot", "Spring Cloud", "Eureka", "JWT Security"],
         github: "https://github.com/nimashashehani123/Smart-Parking-Management-System",
     },
@@ -71,7 +80,7 @@ const projects: Project[] = [
         title: "Portfolio Website",
         description:
             "A personal portfolio showcasing projects, skills, and experiences in a sleek, responsive design.",
-        image: "src/assets/images/portfolio.png",
+        image: portfolio,
         tech: ["HTML","JavaScript", "Tailwind CSS"],
         github: "https://github.com/nimashashehani123/Portfolio",
     },
@@ -80,7 +89,7 @@ const projects: Project[] = [
         title: "Burger Shop POS",
         description:
             "A user-friendly Point-of-Sale system for managing orders, inventory, and customers in a burger café.",
-        image: "src/assets/images/burgershop.png",
+        image: burgershop,
         tech: ["HTML", "JavaScript", "Bootstrap"],
         github: "https://github.com/nimashashehani123/POS-System",
     },
@@ -89,7 +98,7 @@ const projects: Project[] = [
         title: "Connect 4 Game",
         description:
             "A digital implementation of the classic Connect 4 strategy game with an interactive UI.",
-        image: "src/assets/images/connect 4.jpg",
+        image: connect4,
         tech: ["Java", "OOP Concept", "AI Algorithm"],
         github: "https://github.com/nimashashehani123/connect-four-game-assignment",
     },
@@ -98,7 +107,7 @@ const projects: Project[] = [
         title: "Accessories Management System",
         description:
             "A tool for tracking, organizing, and managing inventory of fashion accessories effectively.",
-        image: "src/assets/images/naturab.png",
+        image: naturab,
         tech: ["Java", "MySQL", "HTML", "CSS"],
         github: "https://github.com/nimashashehani123/Naturab-Serm_FinalProject",
     },

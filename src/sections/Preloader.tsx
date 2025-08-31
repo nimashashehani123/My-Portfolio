@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import audio from "./../assets/sounds/keyboard-typing-one-short-292592.mp3"
 
 interface PreloaderProps {
     onFinish: () => void;
@@ -24,7 +25,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         if (started) return;
         setStarted(true);
 
-        typingSound.current = new Audio("src/assets/sounds/keyboard-typing-one-short-292592.mp3");
+        typingSound.current = new Audio(audio);
 
         let index = 0;
         const typingInterval = setInterval(() => {
