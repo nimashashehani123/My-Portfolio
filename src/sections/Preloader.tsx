@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import audio from "./../assets/sounds/keyboard-typing-one-short-292592.mp3"
+import audio1 from "./../assets/sounds/computer-keyboard-typing-290582.mp3";
+import audio2 from "./../assets/sounds/spacebar-click-keyboard-199448.mp3";
 
 interface PreloaderProps {
     onFinish: () => void;
@@ -8,48 +9,62 @@ interface PreloaderProps {
 const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     const [started, setStarted] = useState(false);
     const [displayedText, setDisplayedText] = useState("");
-    const typingSound = useRef<HTMLAudioElement | null>(null);
-    const typingText = "Welcome to my Portfolio";
-    const typingSpeed = 120;
     const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+
+    const typingSound = useRef<HTMLAudioElement | null>(null);
+    const finalSound = useRef<HTMLAudioElement | null>(null);
+    const typingText = " Welcome to my Portfolio";
+    const typingSpeed = 200;
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
+            setMousePos({
+                x: (e.clientX / window.innerWidth) * 100,
+                y: (e.clientY / window.innerHeight) * 100
+            });
         };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     const handleStart = () => {
         if (started) return;
         setStarted(true);
 
-        typingSound.current = new Audio(audio);
+        // Play typing sound loop
+        typingSound.current = new Audio(audio1);
+        typingSound.current.loop = true;
+        typingSound.current.play().catch(() => {});
+
+        // Prepare final sound
+        finalSound.current = new Audio(audio2);
 
         let index = 0;
         const typingInterval = setInterval(() => {
-            const currentChar = typingText.charAt(index);
-            setDisplayedText(prev => prev + currentChar);
-
-            if (currentChar !== " " && typingSound.current) {
-                const soundClone = typingSound.current.cloneNode(true) as HTMLAudioElement;
-                soundClone.play().catch(() => {});
-            }
-
+            setDisplayedText(prev => prev + typingText.charAt(index));
             index++;
+
             if (index >= typingText.length) {
                 clearInterval(typingInterval);
-                setTimeout(() => {
-                    if (typingSound.current) {
-                        const finalSound = typingSound.current.cloneNode(true) as HTMLAudioElement;
-                        finalSound.play().catch(() => {});
-                    }
-                }, 1000);
-            }
-        }, typingSpeed);
 
-        setTimeout(() => onFinish(), typingSpeed * typingText.length + 1500);
+                // Stop typing sound
+                if (typingSound.current) {
+                    typingSound.current.pause();
+                    typingSound.current.currentTime = 0;
+                }
+
+                // Play final sound while preloader is still visible
+                if (finalSound.current) {
+                    finalSound.current.play().catch(() => {});
+                }
+
+                // Close preloader shortly after final sound starts
+                setTimeout(() => {
+                    onFinish();
+                }, 400); // adjust delay if needed
+            }
+
+        }, typingSpeed);
     };
 
     return (
@@ -59,7 +74,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         >
             {/* Floating Blob */}
             <div
-                className="absolute w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"
+                className="absolute w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl transition-transform duration-300"
                 style={{ transform: `translate(-50%, -50%) translate(${mousePos.x - 50}%, ${mousePos.y - 50}%)` }}
             />
 
