@@ -48,7 +48,7 @@ const Skills: React.FC = () => {
                 My Skills
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 max-w-6xl w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 mb-20 gap-6 max-w-6xl w-full">
                 {skills.map((skill, idx) => (
                     <motion.div
                         key={idx}
